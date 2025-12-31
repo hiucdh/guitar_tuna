@@ -17,6 +17,7 @@ import 'domain/usecases/get_settings.dart';
 import 'domain/usecases/save_settings.dart';
 import 'domain/usecases/calculate_cents.dart';
 import 'domain/usecases/detect_pitch.dart';
+import 'domain/usecases/get_closest_note.dart';
 
 /// Main app widget with provider setup
 class GuitarTunaApp extends StatelessWidget {
@@ -40,6 +41,7 @@ class GuitarTunaApp extends StatelessWidget {
     final saveSettings = SaveSettings(settingsRepository);
     final calculateCents = CalculateCents();
     final detectPitch = DetectPitch(audioRepository);
+    final getClosestNote = GetClosestNote();
 
     return MultiProvider(
       providers: [
@@ -59,6 +61,7 @@ class GuitarTunaApp extends StatelessWidget {
           create: (_) => TunerProvider(
             detectPitch: detectPitch,
             calculateCents: calculateCents,
+            getClosestNote: getClosestNote,
           ),
         ),
       ],

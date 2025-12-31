@@ -3,16 +3,19 @@ import 'package:flutter/material.dart';
 import '../../domain/usecases/detect_pitch.dart';
 import '../../domain/entities/tuning.dart';
 import '../../domain/usecases/calculate_cents.dart';
+import '../../domain/usecases/get_closest_note.dart';
 import '../../core/utils/logger.dart';
 
 /// Provider for tuner state management
 class TunerProvider extends ChangeNotifier {
   final DetectPitch detectPitch;
   final CalculateCents calculateCents;
+  final GetClosestNote getClosestNote;
 
   TunerProvider({
     required this.detectPitch,
     required this.calculateCents,
+    required this.getClosestNote,
   });
 
   // Tuner state
@@ -95,13 +98,21 @@ class TunerProvider extends ChangeNotifier {
   void updateFrequency(double frequency) {
     _detectedFrequency = frequency;
 
-    // Calculate cents offset if tuning is selected
-    if (_selectedTuning != null && _selectedStringIndex >= 0) {
-      final targetFrequency =
-          _selectedTuning!.frequencies[_selectedStringIndex];
-      _cents = calculateCents.execute(frequency, targetFrequency);
-    }
+    // 1. Get closest note from frequency
+    final closestNote = getClosestNote.execute(frequency);
+    
+    // 2. Update detected note info
+    _detectedNote = closestNote.name;
+    _detectedOctave = closestNote.octave;
 
+    // 3. Update cents deviation
+    // Calculate cents between incoming frequency and the "perfect" target frequency of the closest note
+    _cents = calculateCents.execute(frequency, closestNote.frequency);
+
+    // 4. (Optional) Auto-select string if using a tuning preset
+    // If we have a selected tuning, we could try to match the closest string
+    // but for now, we just rely on "Chromatic" style tuning where we show whatever note is played.
+    
     notifyListeners();
   }
 
