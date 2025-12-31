@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/tuner_provider.dart';
 import '../../../core/extensions/context_extension.dart';
-
+import '../../widgets/tuner/tuner_meter.dart';
 /// Tuner screen - main tuning interface
 class TunerScreen extends StatelessWidget {
   const TunerScreen({super.key});
@@ -39,32 +39,51 @@ class TunerScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
 
-                // Frequency display
-                if (tuner.detectedFrequency != null)
-                  Text(
-                    '${tuner.detectedFrequency!.toStringAsFixed(2)} Hz',
-                    style: context.textTheme.headlineSmall,
-                  ),
+
                 const SizedBox(height: 32),
 
-                // Cents display
-                Text(
-                  tuner.cents >= 0
-                      ? '+${tuner.cents.toStringAsFixed(0)}¢'
-                      : '${tuner.cents.toStringAsFixed(0)}¢',
-                  style: context.textTheme.displayMedium?.copyWith(
-                    color: tuner.isInTune
-                        ? Colors.green
-                        : tuner.cents > 0
-                        ? Colors.orange
-                        : Colors.blue,
-                  ),
+                // Tuner Meter
+                TweenAnimationBuilder<double>(
+                  tween: Tween<double>(begin: 0, end: tuner.cents),
+                  duration: const Duration(milliseconds: 200),
+                  curve: Curves.easeOutCubic,
+                  builder: (context, value, child) {
+                    return Column(
+                      children: [
+                        TunerMeter(
+                          cents: value, 
+                          isInTune: tuner.isInTune
+                        ),
+                        const SizedBox(height: 16),
+                        Text(
+                          value >= 0
+                              ? '+${value.toStringAsFixed(0)}¢'
+                              : '${value.toStringAsFixed(0)}¢',
+                          style: context.textTheme.headlineSmall?.copyWith(
+                            color: tuner.isInTune ? Colors.green : Colors.grey,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 ),
                 const SizedBox(height: 16),
 
                 // Tuning status
                 Text(tuner.tuningStatus, style: context.textTheme.titleLarge),
-                const SizedBox(height: 64),
+                const SizedBox(height: 16),
+                
+                // Frequency display
+                if (tuner.detectedFrequency != null)
+                  Text(
+                    '${tuner.detectedFrequency!.toStringAsFixed(2)} Hz',
+                    style: context.textTheme.headlineSmall?.copyWith(
+                      color: Colors.grey,
+                      fontSize: 20,
+                    ),
+                  ),
+                const SizedBox(height: 48),
 
                 // Start/Stop button
                 ElevatedButton.icon(

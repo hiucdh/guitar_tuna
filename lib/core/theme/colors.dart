@@ -132,6 +132,10 @@ class AppColors {
   /// Color for flat (too low) indicator
   static const Color flat = warning;
 
+  static const Color tunerSuccess = inTune;
+  static const Color tunerSharp = sharp;
+  static const Color tunerFlat = flat;
+
   /// Frequency meter gradient
   static const List<Color> frequencyGradient = [
     Color(0xFF00BCD4), // Cyan
