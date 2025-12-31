@@ -203,11 +203,7 @@ class Validators {
   // ============================================================
 
   /// Validates against a regex pattern
-  static String? pattern(
-    String? value,
-    RegExp pattern,
-    String errorMessage,
-  ) {
+  static String? pattern(String? value, RegExp pattern, String errorMessage) {
     if (value == null || value.isEmpty) {
       return 'This field is required';
     }

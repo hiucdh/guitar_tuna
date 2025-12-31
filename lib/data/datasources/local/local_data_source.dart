@@ -60,9 +60,7 @@ class LocalDataSource {
   }
 
   /// Saves custom tunings
-  Future<void> saveCustomTunings(
-    List<Map<String, dynamic>> tuningsJson,
-  ) async {
+  Future<void> saveCustomTunings(List<Map<String, dynamic>> tuningsJson) async {
     try {
       final jsonString = json.encode(tuningsJson);
       await sharedPreferences.setString('custom_tunings', jsonString);

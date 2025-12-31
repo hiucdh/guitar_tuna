@@ -19,13 +19,13 @@ abstract class AppException implements Exception {
 /// Exception thrown when audio initialization fails
 class AudioInitializationException extends AppException {
   const AudioInitializationException([String? message])
-      : super(message ?? 'Failed to initialize audio system', 'AUDIO_INIT');
+    : super(message ?? 'Failed to initialize audio system', 'AUDIO_INIT');
 }
 
 /// Exception thrown when pitch detection fails
 class PitchDetectionException extends AppException {
   const PitchDetectionException([String? message])
-      : super(message ?? 'Failed to detect pitch', 'PITCH_DETECTION');
+    : super(message ?? 'Failed to detect pitch', 'PITCH_DETECTION');
 }
 
 /// Exception thrown for general audio errors
@@ -40,19 +40,16 @@ class AudioException extends AppException {
 /// Exception thrown when permission is denied
 class PermissionDeniedException extends AppException {
   const PermissionDeniedException([String? message])
-      : super(
-          message ?? 'Required permission was denied',
-          'PERMISSION_DENIED',
-        );
+    : super(message ?? 'Required permission was denied', 'PERMISSION_DENIED');
 }
 
 /// Exception thrown when permission is permanently denied
 class PermissionPermanentlyDeniedException extends AppException {
   const PermissionPermanentlyDeniedException([String? message])
-      : super(
-          message ?? 'Permission permanently denied',
-          'PERMISSION_PERMANENTLY_DENIED',
-        );
+    : super(
+        message ?? 'Permission permanently denied',
+        'PERMISSION_PERMANENTLY_DENIED',
+      );
 }
 
 // ============================================================
@@ -67,13 +64,13 @@ class StorageException extends AppException {
 /// Exception thrown when data cannot be read
 class DataReadException extends StorageException {
   const DataReadException([String? message])
-      : super(message ?? 'Failed to read data', 'DATA_READ');
+    : super(message ?? 'Failed to read data', 'DATA_READ');
 }
 
 /// Exception thrown when data cannot be written
 class DataWriteException extends StorageException {
   const DataWriteException([String? message])
-      : super(message ?? 'Failed to write data', 'DATA_WRITE');
+    : super(message ?? 'Failed to write data', 'DATA_WRITE');
 }
 
 // ============================================================
@@ -88,7 +85,7 @@ class ValidationException extends AppException {
 /// Exception thrown when input is invalid
 class InvalidInputException extends ValidationException {
   const InvalidInputException([String? message])
-      : super(message ?? 'Invalid input', 'INVALID_INPUT');
+    : super(message ?? 'Invalid input', 'INVALID_INPUT');
 }
 
 // ============================================================
@@ -103,7 +100,7 @@ class NetworkException extends AppException {
 /// Exception thrown when no internet connection
 class NoInternetException extends NetworkException {
   const NoInternetException([String? message])
-      : super(message ?? 'No internet connection', 'NO_INTERNET');
+    : super(message ?? 'No internet connection', 'NO_INTERNET');
 }
 
 // ============================================================
@@ -113,11 +110,11 @@ class NoInternetException extends NetworkException {
 /// Exception thrown for unexpected errors
 class UnexpectedException extends AppException {
   const UnexpectedException([String? message])
-      : super(message ?? 'An unexpected error occurred', 'UNEXPECTED');
+    : super(message ?? 'An unexpected error occurred', 'UNEXPECTED');
 }
 
 /// Exception thrown when a feature is not implemented
 class NotImplementedException extends AppException {
   const NotImplementedException([String? message])
-      : super(message ?? 'Feature not implemented', 'NOT_IMPLEMENTED');
+    : super(message ?? 'Feature not implemented', 'NOT_IMPLEMENTED');
 }

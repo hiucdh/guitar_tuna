@@ -37,13 +37,13 @@ class Tuning extends Equatable {
 
   @override
   List<Object?> get props => [
-        id,
-        name,
-        notes,
-        frequencies,
-        description,
-        isCustom,
-      ];
+    id,
+    name,
+    notes,
+    frequencies,
+    description,
+    isCustom,
+  ];
 
   @override
   String toString() => name;

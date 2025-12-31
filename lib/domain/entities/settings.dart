@@ -43,16 +43,16 @@ class Settings extends Equatable {
 
   @override
   List<Object?> get props => [
-        tuningId,
-        referencePitch,
-        themeMode,
-        sensitivity,
-        autoMode,
-        showFrequency,
-        showCents,
-        vibrationEnabled,
-        soundEnabled,
-      ];
+    tuningId,
+    referencePitch,
+    themeMode,
+    sensitivity,
+    autoMode,
+    showFrequency,
+    showCents,
+    vibrationEnabled,
+    soundEnabled,
+  ];
 
   /// Creates a copy with modified fields
   Settings copyWith({

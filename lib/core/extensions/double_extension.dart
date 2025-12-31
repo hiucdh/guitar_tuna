@@ -57,12 +57,7 @@ extension DoubleExtension on double {
   }
 
   /// Maps value from one range to another
-  double mapRange(
-    double fromMin,
-    double fromMax,
-    double toMin,
-    double toMax,
-  ) {
+  double mapRange(double fromMin, double fromMax, double toMin, double toMax) {
     return (this - fromMin) / (fromMax - fromMin) * (toMax - toMin) + toMin;
   }
 
@@ -114,7 +109,7 @@ extension IntExtension on int {
       'G#',
       'A',
       'A#',
-      'B'
+      'B',
     ];
     return noteNames[this % 12];
   }

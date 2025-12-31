@@ -125,9 +125,7 @@ class TuningRepositoryImpl implements TuningRepository {
         return Right(customTuning.toEntity());
       }
 
-      return Left(
-        StorageFailure('Tuning with id "$id" not found'),
-      );
+      return Left(StorageFailure('Tuning with id "$id" not found'));
     } on StorageException catch (e) {
       return Left(StorageFailure(e.message));
     } catch (e) {
@@ -145,8 +143,7 @@ class TuningRepositoryImpl implements TuningRepository {
           .toList();
 
       // Check if tuning already exists
-      final existingIndex = customTunings
-          .indexWhere((t) => t.id == tuning.id);
+      final existingIndex = customTunings.indexWhere((t) => t.id == tuning.id);
 
       final tuningModel = TuningModel.fromEntity(tuning);
 

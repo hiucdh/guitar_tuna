@@ -126,11 +126,7 @@ extension ContextExtension on BuildContext {
     SnackBarAction? action,
   }) {
     ScaffoldMessenger.of(this).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        duration: duration,
-        action: action,
-      ),
+      SnackBar(content: Text(message), duration: duration, action: action),
     );
   }
 
@@ -162,10 +158,7 @@ extension ContextExtension on BuildContext {
 
   /// Shows a dialog
   Future<T?> showCustomDialog<T>(Widget dialog) {
-    return showDialog<T>(
-      context: this,
-      builder: (_) => dialog,
-    );
+    return showDialog<T>(context: this, builder: (_) => dialog);
   }
 
   /// Shows an alert dialog
@@ -182,14 +175,8 @@ extension ContextExtension on BuildContext {
         content: Text(message),
         actions: [
           if (cancelText != null)
-            TextButton(
-              onPressed: () => pop(false),
-              child: Text(cancelText),
-            ),
-          TextButton(
-            onPressed: () => pop(true),
-            child: Text(confirmText),
-          ),
+            TextButton(onPressed: () => pop(false), child: Text(cancelText)),
+          TextButton(onPressed: () => pop(true), child: Text(confirmText)),
         ],
       ),
     );

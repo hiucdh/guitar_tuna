@@ -1,59 +1,74 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'core/theme/app_theme.dart';
 import 'core/constants/app_constants.dart';
+import 'presentation/navigation/app_router.dart';
+import 'presentation/navigation/routes.dart';
+import 'presentation/providers/settings_provider.dart';
+import 'presentation/providers/theme_provider.dart';
+import 'presentation/providers/tuner_provider.dart';
+import 'data/datasources/local/local_data_source.dart';
+import 'data/repositories/settings_repository_impl.dart';
+import 'domain/usecases/get_settings.dart';
+import 'domain/usecases/save_settings.dart';
+import 'domain/usecases/calculate_cents.dart';
 
-/// Main app widget
+/// Main app widget with provider setup
 class GuitarTunaApp extends StatelessWidget {
-  const GuitarTunaApp({super.key});
+  final SharedPreferences sharedPreferences;
+
+  const GuitarTunaApp({super.key, required this.sharedPreferences});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      // App title
-      title: AppConstants.appName,
+    // Initialize data sources and repositories
+    final localDataSource = LocalDataSource(sharedPreferences);
+    final settingsRepository = SettingsRepositoryImpl(localDataSource);
 
-      // Debug banner
-      debugShowCheckedModeBanner: false,
+    // Initialize use cases
+    final getSettings = GetSettings(settingsRepository);
+    final saveSettings = SaveSettings(settingsRepository);
+    final calculateCents = CalculateCents();
 
-      // Theme
-      theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
-      themeMode: ThemeMode.dark, // Default to dark theme
-      // Home
-      home: const HomeScreen(),
-    );
-  }
-}
+    return MultiProvider(
+      providers: [
+        // Theme provider
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
 
-/// Temporary home screen for testing theme
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Guitar Tuna')),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Guitar Tuna',
-              style: Theme.of(context).textTheme.displayLarge,
-            ),
-            const SizedBox(height: 16),
-            Text(
-              'Professional Guitar Tuner',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            const SizedBox(height: 32),
-            ElevatedButton(onPressed: () {}, child: const Text('Start Tuning')),
-            const SizedBox(height: 16),
-            OutlinedButton(onPressed: () {}, child: const Text('Settings')),
-            const SizedBox(height: 16),
-            TextButton(onPressed: () {}, child: const Text('About')),
-          ],
+        // Settings provider
+        ChangeNotifierProvider(
+          create: (_) => SettingsProvider(
+            getSettings: getSettings,
+            saveSettings: saveSettings,
+          )..loadSettings(),
         ),
+
+        // Tuner provider
+        ChangeNotifierProvider(
+          create: (_) => TunerProvider(calculateCents: calculateCents),
+        ),
+      ],
+      child: Consumer<ThemeProvider>(
+        builder: (context, themeProvider, child) {
+          return MaterialApp(
+            // App title
+            title: AppConstants.appName,
+
+            // Debug banner
+            debugShowCheckedModeBanner: false,
+
+            // Theme
+            theme: AppTheme.lightTheme,
+            darkTheme: AppTheme.darkTheme,
+            themeMode: themeProvider.themeMode,
+
+            // Navigation
+            initialRoute: Routes.home,
+            onGenerateRoute: AppRouter.onGenerateRoute,
+            onUnknownRoute: AppRouter.onUnknownRoute,
+          );
+        },
       ),
     );
   }

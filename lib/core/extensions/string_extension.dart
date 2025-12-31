@@ -65,9 +65,7 @@ extension StringExtension on String {
 
   /// Converts string to PascalCase
   String toPascalCase() {
-    return split(RegExp(r'[_\s]+'))
-        .map((word) => word.capitalize())
-        .join();
+    return split(RegExp(r'[_\s]+')).map((word) => word.capitalize()).join();
   }
 
   /// Checks if string contains only digits

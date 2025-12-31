@@ -118,17 +118,16 @@ class Logger {
       return result;
     } catch (e) {
       stopwatch.stop();
-      error('$operation failed after ${stopwatch.elapsedMilliseconds}ms',
-          error: e);
+      error(
+        '$operation failed after ${stopwatch.elapsedMilliseconds}ms',
+        error: e,
+      );
       rethrow;
     }
   }
 
   /// Measures and logs execution time of a synchronous function
-  static T measureSync<T>(
-    String operation,
-    T Function() function,
-  ) {
+  static T measureSync<T>(String operation, T Function() function) {
     final stopwatch = Stopwatch()..start();
     try {
       final result = function();
@@ -137,8 +136,10 @@ class Logger {
       return result;
     } catch (e) {
       stopwatch.stop();
-      error('$operation failed after ${stopwatch.elapsedMilliseconds}ms',
-          error: e);
+      error(
+        '$operation failed after ${stopwatch.elapsedMilliseconds}ms',
+        error: e,
+      );
       rethrow;
     }
   }

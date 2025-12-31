@@ -13,9 +13,7 @@ class AudioRepositoryImpl implements AudioRepository {
     // 2. Audio stream capture
     // 3. FFT processing
     // 4. Pitch detection algorithm (e.g., YIN, autocorrelation)
-    return Left(
-      NotImplementedFailure('Pitch detection not yet implemented'),
-    );
+    return Left(NotImplementedFailure('Pitch detection not yet implemented'));
   }
 
   @override
@@ -29,9 +27,7 @@ class AudioRepositoryImpl implements AudioRepository {
   @override
   Future<Either<Failure, bool>> checkMicrophonePermission() async {
     // TODO: Implement permission check
-    return Left(
-      NotImplementedFailure('Permission check not yet implemented'),
-    );
+    return Left(NotImplementedFailure('Permission check not yet implemented'));
   }
 
   @override

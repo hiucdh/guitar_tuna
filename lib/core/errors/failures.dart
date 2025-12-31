@@ -27,7 +27,7 @@ class AudioFailure extends Failure {
 /// Failure when pitch detection fails
 class PitchDetectionFailure extends AudioFailure {
   const PitchDetectionFailure([String? message])
-      : super(message ?? 'Failed to detect pitch', 'PITCH_DETECTION_FAILURE');
+    : super(message ?? 'Failed to detect pitch', 'PITCH_DETECTION_FAILURE');
 }
 
 // ============================================================
@@ -36,8 +36,7 @@ class PitchDetectionFailure extends AudioFailure {
 
 /// Failure for permission-related errors
 class PermissionFailure extends Failure {
-  const PermissionFailure(super.message,
-      [super.code = 'PERMISSION_FAILURE']);
+  const PermissionFailure(super.message, [super.code = 'PERMISSION_FAILURE']);
 }
 
 // ============================================================
@@ -52,7 +51,7 @@ class StorageFailure extends Failure {
 /// Failure when cache operation fails
 class CacheFailure extends StorageFailure {
   const CacheFailure([String? message])
-      : super(message ?? 'Cache operation failed', 'CACHE_FAILURE');
+    : super(message ?? 'Cache operation failed', 'CACHE_FAILURE');
 }
 
 // ============================================================
@@ -61,8 +60,7 @@ class CacheFailure extends StorageFailure {
 
 /// Failure for validation errors
 class ValidationFailure extends Failure {
-  const ValidationFailure(super.message,
-      [super.code = 'VALIDATION_FAILURE']);
+  const ValidationFailure(super.message, [super.code = 'VALIDATION_FAILURE']);
 }
 
 // ============================================================
@@ -77,7 +75,7 @@ class NetworkFailure extends Failure {
 /// Failure when server returns an error
 class ServerFailure extends NetworkFailure {
   const ServerFailure([String? message])
-      : super(message ?? 'Server error', 'SERVER_FAILURE');
+    : super(message ?? 'Server error', 'SERVER_FAILURE');
 }
 
 // ============================================================
@@ -87,14 +85,11 @@ class ServerFailure extends NetworkFailure {
 /// Failure for unexpected errors
 class UnexpectedFailure extends Failure {
   const UnexpectedFailure([String? message])
-      : super(
-          message ?? 'An unexpected error occurred',
-          'UNEXPECTED_FAILURE',
-        );
+    : super(message ?? 'An unexpected error occurred', 'UNEXPECTED_FAILURE');
 }
 
 /// Failure when a feature is not implemented
 class NotImplementedFailure extends Failure {
   const NotImplementedFailure([String? message])
-      : super(message ?? 'Feature not implemented', 'NOT_IMPLEMENTED');
+    : super(message ?? 'Feature not implemented', 'NOT_IMPLEMENTED');
 }
