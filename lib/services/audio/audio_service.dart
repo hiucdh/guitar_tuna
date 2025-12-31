@@ -6,7 +6,7 @@ import '../../core/utils/logger.dart';
 
 class AudioService {
   final _audioCapture = FlutterAudioCapture();
-  // final _pitchDetector = PitchDetector();
+  final _pitchDetector = PitchDetector(audioSampleRate: 44100, bufferSize: 2000); // sampleRate, sampleSize
   final _pitchController = StreamController<double>.broadcast();
   
   // Configuration
@@ -14,18 +14,27 @@ class AudioService {
   static const int _bufferSize = 3000;
 
   bool _isRecording = false;
+  bool _isInitialized = false;
 
   Stream<double> get pitchStream => _pitchController.stream;
+
+  Future<void> _ensureInitialized() async {
+    if (!_isInitialized) {
+      await _audioCapture.init();
+      _isInitialized = true;
+    }
+  }
 
   Future<void> start() async {
     if (_isRecording) return;
 
     try {
+      await _ensureInitialized();
       await _audioCapture.start(
         _listener, 
         _onError, 
         sampleRate: _sampleRate, 
-        bufferSize: _bufferSize // Low buffer for lower latency
+        bufferSize: _bufferSize 
       );
       _isRecording = true;
       Logger.info('Audio service started');
@@ -47,7 +56,7 @@ class AudioService {
     }
   }
 
-  void _listener(dynamic obj) {
+  Future<void> _listener(dynamic obj) async {
     // flutter_audio_capture returns either Float32List or Int16List depending on config
     // Default is usually Float32List. We need to convert if necessary.
     
@@ -67,13 +76,13 @@ class AudioService {
     if (buffer.isEmpty) return;
 
     // Detect pitch
-    // TODO: Fix PitchDetector method signature
-    // final result = _pitchDetector.getPitch(buffer);
+    // Detect pitch
+    final result = await _pitchDetector.getPitchFromFloatBuffer(buffer);
     
-    // if (result.pitched) {
-    //   // Add valid pitch to stream
-    //   _pitchController.add(result.pitch);
-    // }
+    if (result.pitched) {
+      // Add valid pitch to stream
+      _pitchController.add(result.pitch);
+    }
   }
 
   void _onError(Object e) {
