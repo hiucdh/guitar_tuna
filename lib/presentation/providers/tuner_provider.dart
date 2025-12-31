@@ -1,17 +1,23 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import '../../domain/usecases/detect_pitch.dart';
 import '../../domain/entities/tuning.dart';
 import '../../domain/usecases/calculate_cents.dart';
 import '../../core/utils/logger.dart';
 
 /// Provider for tuner state management
-/// TODO: Integrate with audio processing when implemented
 class TunerProvider extends ChangeNotifier {
+  final DetectPitch detectPitch;
   final CalculateCents calculateCents;
 
-  TunerProvider({required this.calculateCents});
+  TunerProvider({
+    required this.detectPitch,
+    required this.calculateCents,
+  });
 
   // Tuner state
   bool _isListening = false;
+  StreamSubscription<double>? _pitchSubscription; // Subscription to pitch stream
   double? _detectedFrequency;
   String? _detectedNote;
   int? _detectedOctave;
@@ -40,16 +46,42 @@ class TunerProvider extends ChangeNotifier {
 
   /// Starts listening for pitch
   Future<void> startListening() async {
+    if (_isListening) return;
+
     _isListening = true;
     Logger.info('Started listening for pitch');
     notifyListeners();
 
-    // TODO: Start actual pitch detection
-    // This will be implemented when audio services are ready
+    final result = await detectPitch.execute();
+
+    result.fold(
+      (failure) {
+        Logger.error('Failed to start pitch detection: ${failure.message}');
+        _isListening = false;
+        notifyListeners();
+      },
+      (stream) {
+        _pitchSubscription = stream.listen(
+          (frequency) {
+            updateFrequency(frequency);
+          },
+          onError: (error) {
+            Logger.error('Pitch detection error: $error');
+          },
+        );
+      },
+    );
   }
 
   /// Stops listening for pitch
   Future<void> stopListening() async {
+    if (!_isListening) return;
+    
+    await _pitchSubscription?.cancel();
+    _pitchSubscription = null;
+    
+    await detectPitch.stop();
+
     _isListening = false;
     _detectedFrequency = null;
     _detectedNote = null;

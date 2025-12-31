@@ -8,11 +8,15 @@ import 'presentation/navigation/routes.dart';
 import 'presentation/providers/settings_provider.dart';
 import 'presentation/providers/theme_provider.dart';
 import 'presentation/providers/tuner_provider.dart';
+import 'services/audio/audio_service.dart';
+import 'services/permission/permission_service.dart';
 import 'data/datasources/local/local_data_source.dart';
 import 'data/repositories/settings_repository_impl.dart';
+import 'data/repositories/audio_repository_impl.dart';
 import 'domain/usecases/get_settings.dart';
 import 'domain/usecases/save_settings.dart';
 import 'domain/usecases/calculate_cents.dart';
+import 'domain/usecases/detect_pitch.dart';
 
 /// Main app widget with provider setup
 class GuitarTunaApp extends StatelessWidget {
@@ -22,14 +26,20 @@ class GuitarTunaApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Initialize services
+    final audioService = AudioService();
+    final permissionService = PermissionService();
+
     // Initialize data sources and repositories
     final localDataSource = LocalDataSource(sharedPreferences);
     final settingsRepository = SettingsRepositoryImpl(localDataSource);
+    final audioRepository = AudioRepositoryImpl(audioService, permissionService);
 
     // Initialize use cases
     final getSettings = GetSettings(settingsRepository);
     final saveSettings = SaveSettings(settingsRepository);
     final calculateCents = CalculateCents();
+    final detectPitch = DetectPitch(audioRepository);
 
     return MultiProvider(
       providers: [
@@ -46,7 +56,10 @@ class GuitarTunaApp extends StatelessWidget {
 
         // Tuner provider
         ChangeNotifierProvider(
-          create: (_) => TunerProvider(calculateCents: calculateCents),
+          create: (_) => TunerProvider(
+            detectPitch: detectPitch,
+            calculateCents: calculateCents,
+          ),
         ),
       ],
       child: Consumer<ThemeProvider>(

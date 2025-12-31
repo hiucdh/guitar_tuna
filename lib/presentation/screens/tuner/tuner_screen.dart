@@ -21,8 +21,10 @@ class TunerScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Consumer<TunerProvider>(
-        builder: (context, tuner, child) {
+      body: Builder(
+        builder: (context) {
+          final tuner = context.watch<TunerProvider>();
+          
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
