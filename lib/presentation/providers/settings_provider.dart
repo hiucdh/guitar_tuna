@@ -22,6 +22,9 @@ class SettingsProvider extends ChangeNotifier {
 
   // Individual setting getters
   String get tuningId => _settings.tuningId;
+  // Alias for compatibility with TuningSelectionScreen
+  String get selectedTuningId => _settings.tuningId;
+  
   double get referencePitch => _settings.referencePitch;
   String get themeMode => _settings.themeMode;
   double get sensitivity => _settings.sensitivity;
@@ -75,6 +78,11 @@ class SettingsProvider extends ChangeNotifier {
   /// Updates tuning ID
   Future<void> updateTuningId(String tuningId) async {
     await updateSettings(_settings.copyWith(tuningId: tuningId));
+  }
+  
+  // Alias for compatibility with TuningSelectionScreen
+  Future<void> setTuning(String tuningId) async {
+    await updateTuningId(tuningId);
   }
 
   /// Updates reference pitch

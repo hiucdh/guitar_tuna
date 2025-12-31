@@ -4,6 +4,7 @@ import '../screens/home/home_screen.dart';
 import '../screens/tuner/tuner_screen.dart';
 import '../screens/settings/settings_screen.dart';
 import '../screens/about/about_screen.dart';
+import '../screens/tuning/tuning_selection_screen.dart';
 
 /// App router configuration
 class AppRouter {
@@ -33,6 +34,12 @@ class AppRouter {
       case Routes.about:
         return MaterialPageRoute(
           builder: (_) => const AboutScreen(),
+          settings: settings,
+        );
+
+      case Routes.tuning:
+        return MaterialPageRoute(
+          builder: (_) => const TuningSelectionScreen(),
           settings: settings,
         );
 

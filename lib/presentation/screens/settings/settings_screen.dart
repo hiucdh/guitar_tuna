@@ -46,17 +46,25 @@ class SettingsScreen extends StatelessWidget {
             children: [
               Consumer<SettingsProvider>(
                 builder: (context, settings, child) {
-                  return Column(
-                    children: [
-                      ListTile(
-                        leading: const Icon(Icons.tune),
-                        title: const Text('Reference Pitch'),
-                        subtitle: Text('${settings.referencePitch} Hz'),
-                        trailing: const Icon(Icons.chevron_right),
-                        onTap: () {
-                          // TODO: Show reference pitch dialog
-                        },
-                      ),
+                      return Column(
+                        children: [
+                          ListTile(
+                            leading: const Icon(Icons.music_note),
+                            title: const Text('Tuning Mode'),
+                            subtitle: Text('Current: ${settings.selectedTuningId.toUpperCase().replaceAll('_', ' ')}'),
+                            trailing: const Icon(Icons.chevron_right),
+                            onTap: () => Navigator.pushNamed(context, '/tuning'),
+                          ),
+                          const Divider(height: 1),
+                          ListTile(
+                            leading: const Icon(Icons.tune),
+                            title: const Text('Reference Pitch'),
+                            subtitle: Text('${settings.referencePitch} Hz'),
+                            trailing: const Icon(Icons.chevron_right),
+                            onTap: () {
+                              // TODO: Show reference pitch dialog
+                            },
+                          ),
                       ListTile(
                         leading: const Icon(Icons.graphic_eq),
                         title: const Text('Sensitivity'),

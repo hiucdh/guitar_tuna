@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../../providers/tuner_provider.dart';
 import '../../../core/extensions/context_extension.dart';
 import '../../widgets/tuner/tuner_meter.dart';
+import '../../../core/theme/colors.dart';
 /// Tuner screen - main tuning interface
 class TunerScreen extends StatelessWidget {
   const TunerScreen({super.key});
@@ -29,6 +30,19 @@ class TunerScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                // Current Tuning Name
+                if (tuner.selectedTuning != null)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 16.0),
+                    child: Chip(
+                      label: Text(
+                        tuner.selectedTuning!.name,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      backgroundColor: AppColors.primaryBlue.withOpacity(0.2),
+                    ),
+                  ),
+
                 // Detected note display
                 Text(
                   tuner.detectedNote ?? '--',

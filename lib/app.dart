@@ -13,6 +13,8 @@ import 'services/permission/permission_service.dart';
 import 'data/datasources/local/local_data_source.dart';
 import 'data/repositories/settings_repository_impl.dart';
 import 'data/repositories/audio_repository_impl.dart';
+import 'data/repositories/tuning_repository_impl.dart';
+import 'domain/repositories/tuning_repository.dart';
 import 'domain/usecases/get_settings.dart';
 import 'domain/usecases/save_settings.dart';
 import 'domain/usecases/calculate_cents.dart';
@@ -63,6 +65,11 @@ class GuitarTunaApp extends StatelessWidget {
             calculateCents: calculateCents,
             getClosestNote: getClosestNote,
           ),
+        ),
+
+        // Tuning Repository
+        Provider<TuningRepository>(
+          create: (_) => TuningRepositoryImpl(localDataSource),
         ),
       ],
       child: Consumer<ThemeProvider>(

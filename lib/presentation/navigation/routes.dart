@@ -9,6 +9,7 @@ class Routes {
   static const String about = '/about';
 
   // Settings sub-routes
+  static const String tuning = '/tuning';
   static const String tuningSettings = '/settings/tuning';
   static const String audioSettings = '/settings/audio';
   static const String appearanceSettings = '/settings/appearance';
