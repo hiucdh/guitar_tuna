@@ -45,6 +45,9 @@ dependencies:
   # Functional Programming
   dartz: ^0.10.1
   equatable: ^2.0.5
+  
+  # Local Storage
+  shared_preferences: ^2.2.2
 
 dev_dependencies:
   flutter_test:
