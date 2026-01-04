@@ -7,6 +7,7 @@ import '../screens/about/about_screen.dart';
 import '../screens/tuning/tuning_selection_screen.dart';
 import '../screens/chords/chord_library_screen.dart';
 import '../screens/metronome/metronome_screen.dart';
+import '../screens/practice/practice_screen.dart';
 
 /// App router configuration
 class AppRouter {
@@ -54,6 +55,12 @@ class AppRouter {
       case Routes.metronome:
         return MaterialPageRoute(
           builder: (_) => const MetronomeScreen(),
+          settings: settings,
+        );
+
+      case Routes.practice:
+        return MaterialPageRoute(
+          builder: (_) => const PracticeScreen(),
           settings: settings,
         );
 

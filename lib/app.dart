@@ -25,6 +25,9 @@ import 'data/repositories/chord_repository_impl.dart';
 import 'presentation/providers/chord_provider.dart';
 import 'presentation/providers/metronome_provider.dart';
 import 'services/metronome/metronome_service_impl.dart';
+import 'data/repositories/practice_repository_impl.dart';
+import 'presentation/providers/practice_provider.dart';
+import 'domain/repositories/practice_repository.dart';
 
 /// Main app widget with provider setup
 class GuitarTunaApp extends StatelessWidget {
@@ -87,6 +90,18 @@ class GuitarTunaApp extends StatelessWidget {
         // Metronome Provider
         ChangeNotifierProvider(
           create: (_) => MetronomeProvider(service: MetronomeServiceImpl()),
+        ),
+
+        // Practice Repository
+        Provider<PracticeRepository>(
+          create: (_) => PracticeRepositoryImpl(),
+        ),
+
+        // Practice Provider
+        ChangeNotifierProvider(
+          create: (context) => PracticeProvider(
+            repository: context.read<PracticeRepository>(),
+          ),
         ),
       ],
       child: Consumer<ThemeProvider>(

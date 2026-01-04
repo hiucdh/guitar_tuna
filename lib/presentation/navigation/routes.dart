@@ -20,6 +20,9 @@ class Routes {
   // Metronome
   static const String metronome = '/metronome';
 
+  // Practice
+  static const String practice = '/practice';
+
   // All routes list
   static const List<String> all = [
     home,

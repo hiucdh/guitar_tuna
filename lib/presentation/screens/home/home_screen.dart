@@ -66,6 +66,17 @@ class HomeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 16),
 
+              // Practice Mode button
+              OutlinedButton.icon(
+                onPressed: () => context.pushNamed(Routes.practice),
+                icon: const Icon(Icons.playlist_play),
+                label: const Text('Backing Tracks'),
+                style: OutlinedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                ),
+              ),
+              const SizedBox(height: 16),
+
               // Settings button
               OutlinedButton.icon(
                 onPressed: () => context.pushNamed(Routes.settings),
