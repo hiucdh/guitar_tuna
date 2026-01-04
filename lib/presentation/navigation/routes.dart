@@ -14,6 +14,9 @@ class Routes {
   static const String audioSettings = '/settings/audio';
   static const String appearanceSettings = '/settings/appearance';
 
+  // Chord routes
+  static const String chords = '/chords';
+
   // All routes list
   static const List<String> all = [
     home,

@@ -44,6 +44,17 @@ class HomeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 16),
 
+              // Chord Library button
+              OutlinedButton.icon(
+                onPressed: () => context.pushNamed(Routes.chords),
+                icon: const Icon(Icons.library_music),
+                label: const Text('Chord Library'),
+                style: OutlinedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                ),
+              ),
+              const SizedBox(height: 16),
+
               // Settings button
               OutlinedButton.icon(
                 onPressed: () => context.pushNamed(Routes.settings),

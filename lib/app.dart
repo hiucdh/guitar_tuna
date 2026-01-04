@@ -20,6 +20,9 @@ import 'domain/usecases/save_settings.dart';
 import 'domain/usecases/calculate_cents.dart';
 import 'domain/usecases/detect_pitch.dart';
 import 'domain/usecases/get_closest_note.dart';
+import 'domain/usecases/get_chords.dart';
+import 'data/repositories/chord_repository_impl.dart';
+import 'presentation/providers/chord_provider.dart';
 
 /// Main app widget with provider setup
 class GuitarTunaApp extends StatelessWidget {
@@ -44,6 +47,8 @@ class GuitarTunaApp extends StatelessWidget {
     final calculateCents = CalculateCents();
     final detectPitch = DetectPitch(audioRepository);
     final getClosestNote = GetClosestNote();
+    final chordRepository = ChordRepositoryImpl();
+    final getChords = GetChords(chordRepository);
 
     return MultiProvider(
       providers: [
@@ -70,6 +75,11 @@ class GuitarTunaApp extends StatelessWidget {
         // Tuning Repository
         Provider<TuningRepository>(
           create: (_) => TuningRepositoryImpl(localDataSource),
+        ),
+
+        // Chord Provider
+        ChangeNotifierProvider(
+          create: (_) => ChordProvider(getChords: getChords),
         ),
       ],
       child: Consumer<ThemeProvider>(
