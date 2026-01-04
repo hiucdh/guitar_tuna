@@ -48,6 +48,11 @@
 - 🎸 **DADGAD** (D-A-D-G-A-D)
 - 🎸 **Custom Tunings**: Tạo tuning riêng
 
+### 📚 Chord Library
+- 🎼 **Comprehensive Database**: 35+ hợp âm phổ biến (A-G, Major, Minor, 7, Maj7, m7)
+- 🖼️ **Visual Diagrams**: Biểu đồ thế bấm trực quan, rõ nét
+- 🗂️ **Categorized View**: Phân loại theo Tông (Root Note) dễ dàng tra cứu
+
 ### Advanced Features
 - 🎛️ **Reference Pitch Adjustment**: Điều chỉnh A4 (430-450Hz)
 - 📊 **Frequency Spectrum Analyzer**: Hiển thị spectrum
@@ -131,6 +136,20 @@ For detailed setup instructions, see [Setup Guide](docs/setup.md).
 - 🎵 **One string at a time**: Mute other strings
 - 🔊 **Moderate volume**: Not too soft, not too loud
 - 🎸 **Fresh strings**: Old strings may be harder to tune
+
+### Using Chord Library
+
+1. Tap **Chord Library** on the Home screen.
+2. Select a **Root Note** (e.g., C).
+3. Browse variations (C, Cm, C7, etc.).
+4. Tap a chord to view the detailed **Fingering Diagram**.
+
+### Changing Tuning Mode
+
+1. Go to **Settings**.
+2. Tap **Tuning Mode**.
+3. Select from presets (Standard, Drop D, Open G, etc.).
+4. The Tuner will automatically adjust target frequencies.
 
 ---
 
@@ -271,6 +290,8 @@ If you have any questions or issues:
 - [x] Guitar tuner mode
 - [x] Multiple tuning presets
 - [x] Settings persistence
+- [x] Chord library
+- [x] Alternate tunings selection
 
 ### Version 1.1.0 (Planned)
 - [ ] Bass guitar support
@@ -280,7 +301,6 @@ If you have any questions or issues:
 
 ### Version 2.0.0 (Future)
 - [ ] Metronome integration
-- [ ] Chord library
 - [ ] Practice mode
 - [ ] Cloud sync
 
