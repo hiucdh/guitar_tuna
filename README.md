@@ -59,6 +59,12 @@
 - 🎚️ **Sensitivity Control**: Điều chỉnh độ nhạy
 - 🔊 **Audio Level Meter**: Hiển thị mức âm thanh
 - 💾 **Settings Persistence**: Lưu cài đặt tự động
+- ⏱️ **Metronome**: Máy đếm nhịp với âm thanh Woodblock, tùy chỉnh BPM (30-300)
+- 🎧 **Practice Mode**: Chơi Backing Tracks theo nhiều Tone khác nhau
+
+### 🗺️ Navigation
+- 📱 **Bottom Navigation**: Truy cập nhanh 5 mục chính (Chords, Metronome, Tuner, Tracks, About)
+- ⚙️ **Quick Settings**: Icon cài đặt ở góc phải mọi màn hình chính
 
 ---
 
@@ -299,9 +305,9 @@ If you have any questions or issues:
 - [ ] Recording feature
 - [ ] Tuning history
 
-### Version 2.0.0 (Future)
-- [ ] Metronome integration
-- [ ] Practice mode
+### Version 2.0.0 (Implemented)
+- [x] Metronome integration
+- [x] Practice mode (Backing Tracks)
 - [ ] Cloud sync
 
 ---
