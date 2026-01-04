@@ -16,6 +16,9 @@ class Routes {
 
   // Chord routes
   static const String chords = '/chords';
+  
+  // Metronome
+  static const String metronome = '/metronome';
 
   // All routes list
   static const List<String> all = [

@@ -23,6 +23,8 @@ import 'domain/usecases/get_closest_note.dart';
 import 'domain/usecases/get_chords.dart';
 import 'data/repositories/chord_repository_impl.dart';
 import 'presentation/providers/chord_provider.dart';
+import 'presentation/providers/metronome_provider.dart';
+import 'services/metronome/metronome_service_impl.dart';
 
 /// Main app widget with provider setup
 class GuitarTunaApp extends StatelessWidget {
@@ -80,6 +82,11 @@ class GuitarTunaApp extends StatelessWidget {
         // Chord Provider
         ChangeNotifierProvider(
           create: (_) => ChordProvider(getChords: getChords),
+        ),
+
+        // Metronome Provider
+        ChangeNotifierProvider(
+          create: (_) => MetronomeProvider(service: MetronomeServiceImpl()),
         ),
       ],
       child: Consumer<ThemeProvider>(

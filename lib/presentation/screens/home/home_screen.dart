@@ -55,6 +55,17 @@ class HomeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 16),
 
+              // Metronome button
+              OutlinedButton.icon(
+                onPressed: () => context.pushNamed(Routes.metronome),
+                icon: const Icon(Icons.av_timer),
+                label: const Text('Metronome'),
+                style: OutlinedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                ),
+              ),
+              const SizedBox(height: 16),
+
               // Settings button
               OutlinedButton.icon(
                 onPressed: () => context.pushNamed(Routes.settings),
