@@ -50,6 +50,12 @@ class _MetronomeScreenState extends State<MetronomeScreen> with WidgetsBindingOb
     return Scaffold(
       appBar: AppBar(
         title: const Text('Metronome'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () => Navigator.pushNamed(context, '/settings'),
+          ),
+        ],
       ),
       body: Consumer<MetronomeProvider>(
         builder: (context, provider, child) {

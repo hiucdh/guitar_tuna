@@ -29,6 +29,12 @@ class _ChordLibraryScreenState extends State<ChordLibraryScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Chord Library'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () => Navigator.pushNamed(context, '/settings'),
+          ),
+        ],
       ),
       body: Consumer<ChordProvider>(
         builder: (context, provider, child) {

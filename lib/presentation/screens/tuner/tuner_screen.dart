@@ -17,7 +17,7 @@ class TunerScreen extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.settings),
             onPressed: () {
-              // TODO: Navigate to tuner settings
+              Navigator.pushNamed(context, '/settings');
             },
           ),
         ],
@@ -27,9 +27,11 @@ class TunerScreen extends StatelessWidget {
           final tuner = context.watch<TunerProvider>();
           
           return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
                 // Current Tuning Name
                 if (tuner.selectedTuning != null)
                   Padding(
@@ -45,7 +47,7 @@ class TunerScreen extends StatelessWidget {
 
                 // Detected note display
                 Text(
-                  tuner.detectedNote ?? '--',
+                  tuner.isListening ? (tuner.detectedNote ?? '') : '',
                   style: context.textTheme.displayLarge?.copyWith(
                     fontSize: 120,
                     fontWeight: FontWeight.bold,
@@ -54,7 +56,7 @@ class TunerScreen extends StatelessWidget {
                 const SizedBox(height: 16),
 
 
-                const SizedBox(height: 32),
+                const SizedBox(height: 16),
 
                 // Tuner Meter
                 TweenAnimationBuilder<double>(
@@ -97,7 +99,7 @@ class TunerScreen extends StatelessWidget {
                       fontSize: 20,
                     ),
                   ),
-                const SizedBox(height: 48),
+                const SizedBox(height: 24),
 
                 // Start/Stop button
                 ElevatedButton.icon(
@@ -110,20 +112,21 @@ class TunerScreen extends StatelessWidget {
                   },
                   icon: Icon(
                     tuner.isListening ? Icons.stop : Icons.mic,
-                    size: 32,
+                    size: 24,
                   ),
                   label: Text(
                     tuner.isListening ? 'Stop' : 'Start',
-                    style: const TextStyle(fontSize: 18),
+                    style: const TextStyle(fontSize: 16),
                   ),
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 48,
-                      vertical: 20,
+                      horizontal: 32,
+                      vertical: 16,
                     ),
                   ),
                 ),
               ],
+            ),
             ),
           );
         },

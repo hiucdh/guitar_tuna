@@ -145,6 +145,12 @@ class SettingsScreen extends StatelessWidget {
             title: 'Advanced',
             children: [
               ListTile(
+                leading: const Icon(Icons.info_outline),
+                title: const Text('About'),
+                onTap: () => Navigator.pushNamed(context, '/about'),
+              ),
+              const Divider(height: 1),
+              ListTile(
                 leading: const Icon(Icons.restore, color: Colors.red),
                 title: const Text('Reset to Defaults'),
                 onTap: () async {
