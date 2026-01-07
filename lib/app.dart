@@ -28,6 +28,10 @@ import 'services/metronome/metronome_service_impl.dart';
 import 'data/repositories/practice_repository_impl.dart';
 import 'presentation/providers/practice_provider.dart';
 import 'domain/repositories/practice_repository.dart';
+import 'presentation/providers/auth_provider.dart';
+import 'domain/usecases/login_user.dart';
+import 'data/repositories/auth_repository_impl.dart';
+import 'data/datasources/remote/auth_remote_data_source.dart';
 
 /// Main app widget with provider setup
 class GuitarTunaApp extends StatelessWidget {
@@ -101,6 +105,17 @@ class GuitarTunaApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => PracticeProvider(
             repository: context.read<PracticeRepository>(),
+          ),
+        ),
+
+        // Auth Provider
+        ChangeNotifierProvider(
+          create: (_) => AuthProvider(
+            loginUser: LoginUser(
+              AuthRepositoryImpl(
+                AuthRemoteDataSourceImpl(),
+              ),
+            ),
           ),
         ),
       ],

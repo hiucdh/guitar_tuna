@@ -103,6 +103,12 @@ class NoInternetException extends NetworkException {
     : super(message ?? 'No internet connection', 'NO_INTERNET');
 }
 
+/// Exception thrown when server returns an error
+class ServerException extends NetworkException {
+  const ServerException([String? message])
+    : super(message ?? 'Server error', 'SERVER_ERROR');
+}
+
 // ============================================================
 // GENERAL EXCEPTIONS
 // ============================================================

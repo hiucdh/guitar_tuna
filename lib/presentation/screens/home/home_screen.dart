@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../core/extensions/context_extension.dart';
 import '../../navigation/routes.dart';
 import '../chords/chord_library_screen.dart';
@@ -7,6 +8,8 @@ import '../tuner/tuner_screen.dart';
 import '../practice/practice_screen.dart';
 import '../settings/settings_screen.dart';
 import '../about/about_screen.dart';
+import '../../providers/auth_provider.dart';
+import '../auth/login_screen.dart';
 
 /// Home screen - main landing page
 /// Main Screen with Bottom Navigation
@@ -20,6 +23,30 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   // Ordered: Chord, Metronome, Tuner, Practice, Settings
   int _currentIndex = 2; // Default to Tuner (Center)
+
+  Future<void> _handleNavigation(int index) async {
+    // Check if trying to access Tracks (index 3)
+    if (index == 3) {
+      final isLoggedIn = context.read<AuthProvider>().isLoggedIn;
+      
+      if (!isLoggedIn) {
+        // Show Login Screen
+        final success = await Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const LoginScreen()),
+        );
+
+        // If login successful, allow navigation
+        if (success == true) {
+           setState(() => _currentIndex = index);
+        }
+        return;
+      }
+    }
+
+    // Normal navigation
+    setState(() => _currentIndex = index);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: _currentIndex,
-        onDestinationSelected: (index) {
-          setState(() => _currentIndex = index);
-        },
+        onDestinationSelected: _handleNavigation,
         labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
         destinations: const [
           NavigationDestination(
